@@ -62,3 +62,5 @@ class user:
 Nick = user("Nick")
 Nick.account["checking"].deposit(200)
 Nick.display_user_balance()
+
+## I used the video walkthrough for the sensei bonus portion since I wanted to see how to actually format what I would need to add.
