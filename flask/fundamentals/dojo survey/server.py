@@ -15,9 +15,14 @@ def process():
     session['location'] = request.form['location']
     session['language'] = request.form['language']
     session['comments'] = request.form['comments']
-    return redirect('/success')
+    session['windows'] = request.form['windows']
+    session['mac'] = request.form['mac']
+    session['linux'] = request.form['mac']
+    session['PC'] = request.form['PC']
+    session['macs'] = request.form['macs']
+    session['unlisted'] = request.form['unlisted']
 
-@app.route('/success')
+@app.route('/result')
 def success():
     return render_template('index2.html')
     
