@@ -1,3 +1,4 @@
+from ast import Num
 from flask_app.config.mysqlconnection import connectToMySQL
 import re	
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
@@ -16,7 +17,7 @@ class User:
 
     @classmethod
     def save(cls,data):
-        query = "INSERT INTO users (first_name,last_name,email,password) VALUES(%(first_name)s,%(last_name)s,%(email)s,%(password)s)"
+        query = "INSERT INTO users (first_name,last_name,email,password) VALUES(%(first_name)s,%(last_name)s,%(email)s,%(password))"
         return connectToMySQL(cls.db).query_db(query,data)
 
     @classmethod
@@ -61,6 +62,12 @@ class User:
             is_valid= False
         if len(user['password']) < 6:
             flash("Password must be at least 6 characters","register")
+            is_valid= False
+        if not any(char.isupper() for char in ['password']):
+            flash("Password must have at least 1 uppercase letter","register")
+            is_valid= False
+        if not any(char.isdigit() for char in ['password']):
+            flash("Password must contain atleast one numeral")
             is_valid= False
         if user['password'] != user['confirm']:
             flash("Passwords don't match","register")
